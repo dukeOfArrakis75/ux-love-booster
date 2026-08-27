@@ -23,7 +23,7 @@ export function CandyButton({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      whileTap={disabled ? undefined : { scale: 0.94 }}
+      whileTap={disabled ? {} : { scale: 0.94 }}
       className={`candy-btn ${variant === "gold" ? "candy-btn-gold" : ""} ${className}`}
     >
       {children}

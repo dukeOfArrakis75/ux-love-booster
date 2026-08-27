@@ -173,7 +173,7 @@ export function computeEstimation(answers: Record<string, string | string[]>): E
   const firstMarriage = String(answers["marriage.first_marriage"] ?? "PREFER_NOT_TO_SAY");
   const city = String(answers["marriage.city"] ?? "");
 
-  let amount = BASE_BY_COUNTRY[country] ?? BASE_BY_COUNTRY.OTHER;
+  let amount: number = BASE_BY_COUNTRY[country] ?? BASE_BY_COUNTRY["OTHER"]!;
   const factors: string[] = [];
 
   factors.push(`Mariage prévu : ${labelFor(country)}${city && city !== "Autre" ? ` (${city})` : ""}`);

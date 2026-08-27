@@ -28,7 +28,7 @@ function Quiz() {
   const [email, setEmail] = useState(state.email);
   const [xpToast, setXpToast] = useState(0);
 
-  const step = QUIZ_STEPS[index];
+  const step = QUIZ_STEPS[index]!;
   const isLast = index === QUIZ_STEPS.length - 1;
   const cityKey = cityKeyFor(step.key);
   const selectedCountry = String(state.answers[step.key] ?? "");
