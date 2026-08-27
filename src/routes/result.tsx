@@ -18,7 +18,7 @@ export const Route = createFileRoute("/result")({
       { property: "og:description", content: "J'ai ouvert mon coffre MyDot : découvre le tien." },
     ],
   }),
-  component: Result;
+  component: Result,
 });
 
 function Result() {
