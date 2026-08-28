@@ -5,8 +5,7 @@ import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 
 import { CandyButton } from "../components/game/CandyButton";
 import { Hud } from "../components/game/Hud";
-import { fireConfetti } from "../components/game/confetti";
-import { game, useGame, levelForXp, XP_PER_ANSWER } from "../lib/game-store";
+import { game, useGame } from "../lib/game-store";
 import { CITIES, COUNTRIES, QUIZ_STEPS, cityKeyFor, type QuizOption } from "../lib/quiz-data";
 
 export const Route = createFileRoute("/quiz")({
@@ -26,21 +25,12 @@ function Quiz() {
   const state = useGame();
   const [index, setIndex] = useState(0);
   const [email, setEmail] = useState(state.email);
-  const [xpToast, setXpToast] = useState(0);
 
   const step = QUIZ_STEPS[index]!;
   const isLast = index === QUIZ_STEPS.length - 1;
   const cityKey = cityKeyFor(step.key);
   const selectedCountry = String(state.answers[step.key] ?? "");
   const selectedCity = String(state.answers[cityKey] ?? "");
-
-  function celebrate(isNew: boolean) {
-    if (!isNew) return;
-    setXpToast((n) => n + 1);
-    const before = levelForXp(game.get().xp - XP_PER_ANSWER);
-    const after = levelForXp(game.get().xp);
-    void fireConfetti(after > before ? "levelup" : "pop");
-  }
 
   function goNext() {
     if (isLast) {
@@ -51,7 +41,7 @@ function Quiz() {
   }
 
   function pick(value: string) {
-    celebrate(game.answer(step.key, value));
+    game.answer(step.key, value);
     if (step.type === "location") return;
     window.setTimeout(goNext, 320);
   }
@@ -68,7 +58,10 @@ function Quiz() {
 
   return (
     <div className="min-h-screen px-4 pb-28 pt-24">
-      <Hud stepLabel={`${index + 1}/${QUIZ_STEPS.length} · ${step.section}`} />
+      <Hud
+        stepLabel={`${index + 1}/${QUIZ_STEPS.length} · ${step.section}`}
+        progress={(index + 1) / QUIZ_STEPS.length}
+      />
 
       <AnimatePresence mode="wait">
         <motion.section
@@ -139,7 +132,7 @@ function Quiz() {
                     <button
                       key={city}
                       type="button"
-                      onClick={() => celebrate(game.answer(cityKey, city))}
+                      onClick={() => game.answer(cityKey, city)}
                       className={`option-clay w-auto px-4 py-2 text-sm ${
                         selectedCity === city ? "option-clay-selected" : ""
                       }`}
@@ -179,7 +172,7 @@ function Quiz() {
             onClick={() => {
               if (step.type === "email") {
                 game.setEmail(email);
-                celebrate(game.answer(step.key, email));
+                game.answer(step.key, email);
               }
               goNext();
             }}
