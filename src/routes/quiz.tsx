@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Lock } from "lucide-react";
 
 import { CandyButton } from "../components/game/CandyButton";
 import { Hud } from "../components/game/Hud";
@@ -12,13 +12,22 @@ export const Route = createFileRoute("/quiz")({
   head: () => ({
     meta: [
       { title: "Le questionnaire — MyDot" },
-      { name: "description", content: "Réponds aux 9 questions MyDot pour obtenir l'estimation de ta dot." },
+      {
+        name: "description",
+        content: "Réponds aux 9 questions MyDot pour obtenir l'estimation de ta dot.",
+      },
+      { property: "og:type", content: "website" },
       { property: "og:title", content: "Le questionnaire — MyDot" },
       { property: "og:description", content: "9 questions et une estimation personnalisée à la clé." },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Le questionnaire — MyDot" },
+      { name: "twitter:description", content: "9 questions et une estimation personnalisée à la clé." },
     ],
   }),
   component: Quiz,
 });
+
+const LETTERS = "ABCDEFGHIJ";
 
 function Quiz() {
   const navigate = useNavigate();
@@ -53,31 +62,35 @@ function Quiz() {
         ? Boolean(selectedCountry && selectedCity)
         : state.answers[step.key] !== undefined;
 
-  const options: QuizOption[] =
-    step.type === "location" ? COUNTRIES : (step.options ?? []);
+  const options: QuizOption[] = step.type === "location" ? COUNTRIES : (step.options ?? []);
 
   return (
     <div className="min-h-screen px-4 pb-28 pt-24">
       <Hud
-        stepLabel={`${index + 1}/${QUIZ_STEPS.length} · ${step.section}`}
+        stepLabel={`Question ${index + 1} sur ${QUIZ_STEPS.length}`}
+        sectionLabel={step.section}
         progress={(index + 1) / QUIZ_STEPS.length}
       />
 
       <AnimatePresence mode="wait">
         <motion.section
           key={step.key}
-          initial={{ opacity: 0, x: 40, scale: 0.97 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          exit={{ opacity: 0, x: -40, scale: 0.97 }}
-          transition={{ type: "spring", stiffness: 260, damping: 24 }}
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -40 }}
+          transition={{ type: "spring", stiffness: 280, damping: 26 }}
           className="mx-auto w-full max-w-md"
         >
-          <h1 className="sticker-title text-2xl leading-snug sm:text-3xl">{step.title}</h1>
-          {step.subtitle && (
-            <p className="mt-2 text-sm font-bold text-muted-foreground">{step.subtitle}</p>
-          )}
+          <div className="clay p-5">
+            <h1 className="font-display text-[22px] font-extrabold leading-snug sm:text-2xl">
+              {step.title}
+            </h1>
+            {step.subtitle && (
+              <p className="mt-2 text-[13px] font-semibold text-muted-foreground">{step.subtitle}</p>
+            )}
+          </div>
 
-          <div className="mt-6 space-y-3">
+          <div className="mt-4 space-y-2.5">
             {step.type === "email" ? (
               <>
                 <input
@@ -90,8 +103,9 @@ function Quiz() {
                   onChange={(event) => setEmail(event.target.value)}
                   aria-label="Adresse email"
                 />
-                <p className="px-1 text-xs font-semibold text-muted-foreground">
-                  Zéro spam, promis. Juste ton résultat 🍬
+                <p className="flex items-center gap-1.5 px-1 text-xs font-semibold text-muted-foreground">
+                  <Lock className="size-3.5" aria-hidden />
+                  Confidentiel. Aucun spam, uniquement ton résultat.
                 </p>
               </>
             ) : (
@@ -104,16 +118,30 @@ function Quiz() {
                   <motion.button
                     key={option.value}
                     type="button"
-                    initial={{ opacity: 0, y: 14 }}
+                    initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: optionIndex * 0.04 }}
+                    transition={{ delay: optionIndex * 0.035 }}
                     onClick={() => pick(option.value)}
                     className={`option-clay ${selected ? "option-clay-selected" : ""}`}
                   >
-                    <span className="text-2xl" aria-hidden>
-                      {option.emoji ?? "✨"}
+                    <span
+                      aria-hidden
+                      className={`grid size-8 shrink-0 place-items-center rounded-full font-display text-[13px] font-extrabold ${
+                        selected
+                          ? "bg-card/25 text-current"
+                          : "bg-secondary text-secondary-foreground"
+                      }`}
+                    >
+                      {LETTERS[optionIndex] ?? "•"}
                     </span>
-                    <span className="flex-1">{option.label}</span>
+                    <span className="flex-1">
+                      {option.emoji && (
+                        <span className="mr-2" aria-hidden>
+                          {option.emoji}
+                        </span>
+                      )}
+                      {option.label}
+                    </span>
                     {selected && <Check className="size-5 shrink-0" aria-hidden />}
                   </motion.button>
                 );
@@ -144,6 +172,11 @@ function Quiz() {
               </motion.div>
             )}
           </div>
+
+          <p className="mt-5 flex items-center justify-center gap-1.5 text-[11px] font-bold text-muted-foreground">
+            <Lock className="size-3.5" aria-hidden />
+            Tes réponses restent privées
+          </p>
         </motion.section>
       </AnimatePresence>
 
@@ -168,7 +201,7 @@ function Quiz() {
               goNext();
             }}
           >
-            {isLast ? "Ouvrir le coffre" : "Continuer"}
+            {isLast ? "Voir mon estimation" : "Continuer"}
             <ArrowRight className="size-5" aria-hidden />
           </CandyButton>
         </div>
