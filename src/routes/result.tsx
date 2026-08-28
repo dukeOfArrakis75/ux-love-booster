@@ -97,7 +97,7 @@ function Result() {
           className="mx-auto mt-4 flex items-center gap-1.5 text-xs font-bold text-muted-foreground underline"
         >
           <RotateCcw className="size-3.5" aria-hidden />
-          Rejouer la quête
+          Recommencer
         </button>
       </motion.div>
     </main>

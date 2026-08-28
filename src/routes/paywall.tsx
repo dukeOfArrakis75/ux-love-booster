@@ -53,7 +53,7 @@ function Paywall() {
 
         <h1 className="sticker-title mt-6 text-3xl">Ton coffre est prêt !</h1>
         <p className="mt-3 text-sm font-bold text-muted-foreground">
-          Quête terminée 🎉 Débloque ton estimation personnalisée.
+          Questionnaire terminé. Débloque ton estimation personnalisée.
         </p>
 
         <div className="clay mt-7 space-y-3 p-5 text-left">
