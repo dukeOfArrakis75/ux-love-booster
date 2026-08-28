@@ -6,7 +6,7 @@ import { RotateCcw, Share2, Sparkles } from "lucide-react";
 import mascot from "../assets/mascot.png";
 import { CandyButton } from "../components/game/CandyButton";
 import { fireConfetti } from "../components/game/confetti";
-import { game, useGame, levelForXp } from "../lib/game-store";
+import { game, useGame } from "../lib/game-store";
 import { computeEstimation } from "../lib/quiz-data";
 
 export const Route = createFileRoute("/result")({
@@ -25,11 +25,10 @@ function Result() {
   const navigate = useNavigate();
   const state = useGame();
   const estimation = useMemo(() => computeEstimation(state.answers), [state.answers]);
-  const level = levelForXp(state.xp);
 
   useEffect(() => {
     game.complete();
-    void fireConfetti("treasure");
+    void fireConfetti("pop");
   }, []);
 
   const format = (value: number) => `${value.toLocaleString("fr-FR")} €`;
@@ -56,7 +55,7 @@ function Result() {
           <img src={mascot} alt="" aria-hidden className="animate-wiggle mx-auto w-24" />
           <span className="level-badge mx-auto mt-3">
             <Sparkles className="size-4 fill-current" aria-hidden />
-            Quête terminée · Niv. {level}
+            Estimation terminée
           </span>
           <h1 className="sticker-title mt-4 text-2xl">Ton estimation</h1>
         </div>

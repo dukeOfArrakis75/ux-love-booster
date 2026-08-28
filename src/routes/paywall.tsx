@@ -5,7 +5,6 @@ import { Lock, Sparkles, Check } from "lucide-react";
 
 import chest from "../assets/chest.png";
 import { CandyButton } from "../components/game/CandyButton";
-import { fireConfetti } from "../components/game/confetti";
 import { game } from "../lib/game-store";
 
 export const Route = createFileRoute("/paywall")({
@@ -34,7 +33,6 @@ function Paywall() {
     setLoading(true);
     window.setTimeout(() => {
       game.setPaid();
-      void fireConfetti("treasure");
       void navigate({ to: "/result" });
     }, 900);
   }
