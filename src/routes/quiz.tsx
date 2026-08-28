@@ -11,10 +11,10 @@ import { CITIES, COUNTRIES, QUIZ_STEPS, cityKeyFor, type QuizOption } from "../l
 export const Route = createFileRoute("/quiz")({
   head: () => ({
     meta: [
-      { title: "La quête — MyDot" },
-      { name: "description", content: "Réponds aux 9 étapes de la quête MyDot et gagne de l'XP à chaque réponse." },
-      { property: "og:title", content: "La quête — MyDot" },
-      { property: "og:description", content: "9 étapes, de l'XP et un coffre au trésor à la clé." },
+      { title: "Le questionnaire — MyDot" },
+      { name: "description", content: "Réponds aux 9 questions MyDot pour obtenir l'estimation de ta dot." },
+      { property: "og:title", content: "Le questionnaire — MyDot" },
+      { property: "og:description", content: "9 questions et une estimation personnalisée à la clé." },
     ],
   }),
   component: Quiz,
