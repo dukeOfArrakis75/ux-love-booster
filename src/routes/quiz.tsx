@@ -5,17 +5,16 @@ import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 
 import { CandyButton } from "../components/game/CandyButton";
 import { Hud } from "../components/game/Hud";
-import { fireConfetti } from "../components/game/confetti";
-import { game, useGame, levelForXp, XP_PER_ANSWER } from "../lib/game-store";
+import { game, useGame } from "../lib/game-store";
 import { CITIES, COUNTRIES, QUIZ_STEPS, cityKeyFor, type QuizOption } from "../lib/quiz-data";
 
 export const Route = createFileRoute("/quiz")({
   head: () => ({
     meta: [
-      { title: "La quête — MyDot" },
-      { name: "description", content: "Réponds aux 9 étapes de la quête MyDot et gagne de l'XP à chaque réponse." },
-      { property: "og:title", content: "La quête — MyDot" },
-      { property: "og:description", content: "9 étapes, de l'XP et un coffre au trésor à la clé." },
+      { title: "Le questionnaire — MyDot" },
+      { name: "description", content: "Réponds aux 9 questions MyDot pour obtenir l'estimation de ta dot." },
+      { property: "og:title", content: "Le questionnaire — MyDot" },
+      { property: "og:description", content: "9 questions et une estimation personnalisée à la clé." },
     ],
   }),
   component: Quiz,
@@ -26,21 +25,12 @@ function Quiz() {
   const state = useGame();
   const [index, setIndex] = useState(0);
   const [email, setEmail] = useState(state.email);
-  const [xpToast, setXpToast] = useState(0);
 
   const step = QUIZ_STEPS[index]!;
   const isLast = index === QUIZ_STEPS.length - 1;
   const cityKey = cityKeyFor(step.key);
   const selectedCountry = String(state.answers[step.key] ?? "");
   const selectedCity = String(state.answers[cityKey] ?? "");
-
-  function celebrate(isNew: boolean) {
-    if (!isNew) return;
-    setXpToast((n) => n + 1);
-    const before = levelForXp(game.get().xp - XP_PER_ANSWER);
-    const after = levelForXp(game.get().xp);
-    void fireConfetti(after > before ? "levelup" : "pop");
-  }
 
   function goNext() {
     if (isLast) {
@@ -51,7 +41,7 @@ function Quiz() {
   }
 
   function pick(value: string) {
-    celebrate(game.answer(step.key, value));
+    game.answer(step.key, value);
     if (step.type === "location") return;
     window.setTimeout(goNext, 320);
   }
@@ -68,7 +58,10 @@ function Quiz() {
 
   return (
     <div className="min-h-screen px-4 pb-28 pt-24">
-      <Hud stepLabel={`${index + 1}/${QUIZ_STEPS.length} · ${step.section}`} />
+      <Hud
+        stepLabel={`${index + 1}/${QUIZ_STEPS.length} · ${step.section}`}
+        progress={(index + 1) / QUIZ_STEPS.length}
+      />
 
       <AnimatePresence mode="wait">
         <motion.section
@@ -139,7 +132,7 @@ function Quiz() {
                     <button
                       key={city}
                       type="button"
-                      onClick={() => celebrate(game.answer(cityKey, city))}
+                      onClick={() => game.answer(cityKey, city)}
                       className={`option-clay w-auto px-4 py-2 text-sm ${
                         selectedCity === city ? "option-clay-selected" : ""
                       }`}
@@ -153,15 +146,6 @@ function Quiz() {
           </div>
         </motion.section>
       </AnimatePresence>
-
-      {xpToast > 0 && (
-        <span
-          key={xpToast}
-          className="animate-xp-pop pointer-events-none fixed left-1/2 top-1/2 z-50 -translate-x-1/2 font-display text-2xl font-extrabold text-primary"
-        >
-          +{XP_PER_ANSWER} XP
-        </span>
-      )}
 
       <div className="fixed inset-x-0 bottom-0 z-40 bg-gradient-to-t from-background via-background to-transparent px-4 pb-5 pt-8">
         <div className="mx-auto flex max-w-md items-center gap-3">
@@ -179,7 +163,7 @@ function Quiz() {
             onClick={() => {
               if (step.type === "email") {
                 game.setEmail(email);
-                celebrate(game.answer(step.key, email));
+                game.answer(step.key, email);
               }
               goNext();
             }}

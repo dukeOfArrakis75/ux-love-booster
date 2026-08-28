@@ -5,7 +5,6 @@ import { Lock, Sparkles, Check } from "lucide-react";
 
 import chest from "../assets/chest.png";
 import { CandyButton } from "../components/game/CandyButton";
-import { fireConfetti } from "../components/game/confetti";
 import { game } from "../lib/game-store";
 
 export const Route = createFileRoute("/paywall")({
@@ -34,7 +33,6 @@ function Paywall() {
     setLoading(true);
     window.setTimeout(() => {
       game.setPaid();
-      void fireConfetti("treasure");
       void navigate({ to: "/result" });
     }, 900);
   }
@@ -55,7 +53,7 @@ function Paywall() {
 
         <h1 className="sticker-title mt-6 text-3xl">Ton coffre est prêt !</h1>
         <p className="mt-3 text-sm font-bold text-muted-foreground">
-          Quête terminée 🎉 Débloque ton estimation personnalisée.
+          Questionnaire terminé. Débloque ton estimation personnalisée.
         </p>
 
         <div className="clay mt-7 space-y-3 p-5 text-left">

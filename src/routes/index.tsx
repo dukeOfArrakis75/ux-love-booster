@@ -5,21 +5,20 @@ import { Sparkles, Play, Trophy } from "lucide-react";
 import chest from "../assets/chest.png";
 import mascot from "../assets/mascot.png";
 import { CandyButton } from "../components/game/CandyButton";
-import { fireConfetti } from "../components/game/confetti";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MyDot — La quête de ta dot en 2 minutes" },
+      { title: "MyDot — Estime le montant de ta dot en 2 minutes" },
       {
         name: "description",
         content:
-          "Joue à MyDot : un mini-jeu de 9 étapes qui estime le montant de ta dot selon ton pays, ton style de mariage et tes traditions.",
+          "MyDot estime le montant de ta dot en 9 questions, selon ton pays, ton style de mariage et tes traditions.",
       },
-      { property: "og:title", content: "MyDot — La quête de ta dot" },
+      { property: "og:title", content: "MyDot — Estime le montant de ta dot" },
       {
         property: "og:description",
-        content: "Gagne de l'XP, ouvre le coffre et découvre l'estimation de ta dot.",
+        content: "9 questions et une estimation personnalisée de ta dot à la clé.",
       },
     ],
   }),
@@ -49,7 +48,7 @@ function Home() {
       >
         <span className="level-badge mx-auto mb-6">
           <Sparkles className="size-4 fill-current" aria-hidden />
-          Nouveau : saison 1
+          Estimation personnalisée
         </span>
 
         <img src={chest} alt="Coffre au trésor" className="animate-chest-glow animate-float-y mx-auto w-52 sm:w-60" />
@@ -59,14 +58,14 @@ function Home() {
           <br /> de ta dot 💍
         </h1>
         <p className="mt-4 text-base font-semibold text-muted-foreground">
-          9 questions, plein d'XP à gagner, et un coffre à ouvrir à la fin.
+          9 questions, et une estimation claire à la fin.
         </p>
 
         <div className="clay mt-8 grid grid-cols-3 gap-2 p-4 text-center">
           {[
             { label: "Étapes", value: "9" },
             { label: "Durée", value: "2 min" },
-            { label: "XP max", value: "135" },
+            { label: "Prix", value: "4,90 €" },
           ].map((stat) => (
             <div key={stat.label}>
               <div className="font-display text-xl font-extrabold text-primary">{stat.value}</div>
@@ -79,18 +78,15 @@ function Home() {
 
         <CandyButton
           className="mt-8 w-full"
-          onClick={() => {
-            void fireConfetti("pop");
-            void navigate({ to: "/quiz" });
-          }}
+          onClick={() => void navigate({ to: "/quiz" })}
         >
           <Play className="size-5 fill-current" aria-hidden />
-          Commencer la quête
+          Commencer
         </CandyButton>
 
         <p className="mt-4 flex items-center justify-center gap-1.5 text-xs font-bold text-muted-foreground">
           <Trophy className="size-4 text-gold" aria-hidden />
-          Déjà 12 480 joueurs ont ouvert leur coffre
+          Déjà 12 480 estimations réalisées
         </p>
       </motion.div>
     </main>
