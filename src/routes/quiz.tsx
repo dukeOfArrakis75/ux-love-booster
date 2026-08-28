@@ -147,15 +147,6 @@ function Quiz() {
         </motion.section>
       </AnimatePresence>
 
-      {xpToast > 0 && (
-        <span
-          key={xpToast}
-          className="animate-xp-pop pointer-events-none fixed left-1/2 top-1/2 z-50 -translate-x-1/2 font-display text-2xl font-extrabold text-primary"
-        >
-          +{XP_PER_ANSWER} XP
-        </span>
-      )}
-
       <div className="fixed inset-x-0 bottom-0 z-40 bg-gradient-to-t from-background via-background to-transparent px-4 pb-5 pt-8">
         <div className="mx-auto flex max-w-md items-center gap-3">
           <button
