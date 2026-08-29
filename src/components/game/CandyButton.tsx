@@ -5,7 +5,7 @@ interface CandyButtonProps {
   children: ReactNode;
   onClick?: () => void;
   disabled?: boolean;
-  variant?: "primary" | "gold";
+  variant?: "primary" | "outline";
   className?: string;
   type?: "button" | "submit";
 }
@@ -23,8 +23,8 @@ export function CandyButton({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      whileTap={disabled ? {} : { scale: 0.94 }}
-      className={`candy-btn ${variant === "gold" ? "candy-btn-gold" : ""} ${className}`}
+      whileTap={disabled ? {} : { scale: 0.97 }}
+      className={`btn-main ${variant === "outline" ? "btn-outline" : ""} ${className}`}
     >
       {children}
     </motion.button>

@@ -1,9 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { Sparkles, ArrowRight, ShieldCheck, Clock, ListChecks, Star, Quote } from "lucide-react";
+import { Sparkles, ArrowRight, ShieldCheck, Clock, ListChecks, Star, Quote, Gem } from "lucide-react";
 
-import chest from "../assets/chest.png";
-import mascot from "../assets/mascot.png";
 import { CandyButton } from "../components/game/CandyButton";
 
 export const Route = createFileRoute("/")({
@@ -90,48 +88,44 @@ function Home() {
 
   return (
     <main className="relative overflow-hidden pb-28">
-      <div className="pointer-events-none absolute -left-24 top-0 size-64 rounded-full bg-candy-pink/20 blur-3xl" />
-      <div className="pointer-events-none absolute -right-20 top-72 size-72 rounded-full bg-gold/25 blur-3xl" />
+      {/* Halos décoratifs discrets */}
+      <div className="pointer-events-none absolute -left-28 top-10 h-72 w-72 rounded-full bg-primary/12 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 top-96 h-72 w-72 rounded-full bg-cyan-glow/18 blur-3xl" />
 
       {/* Hero */}
-      <section className="relative z-10 mx-auto w-full max-w-md px-5 pb-10 pt-10 text-center">
-        <span className="level-badge mx-auto mb-6">
-          <Sparkles className="size-4 fill-current" aria-hidden />
+      <section className="relative z-10 mx-auto w-full max-w-md px-5 pb-10 pt-14 text-center">
+        <span className="chip mx-auto mb-8">
+          <Sparkles className="size-3.5" aria-hidden />
           Test de la dot
         </span>
 
-        <div className="relative">
-          <motion.img
-            src={mascot}
-            alt=""
-            aria-hidden
-            className="animate-float-y-slow absolute -right-2 -top-2 w-16 opacity-90"
-          />
-          <motion.img
-            src={chest}
-            alt="Coffre au trésor"
-            initial={{ scale: 0.7, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 200, damping: 16 }}
-            className="animate-chest-glow animate-float-y mx-auto w-44"
-          />
-        </div>
+        <motion.div
+          initial={{ scale: 0.85, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="glow-orb animate-float-y mx-auto grid size-28 place-items-center rounded-full"
+        >
+          <Gem className="size-12 text-primary-foreground" aria-hidden />
+        </motion.div>
 
-        <h1 className="sticker-title mt-6 text-[2rem] leading-tight sm:text-4xl">
+        <h1 className="page-title mt-8 text-[2.1rem] leading-[1.15] sm:text-4xl">
           Quel est le montant
-          <br /> de ta dot ?
+          <br />
+          <span className="bg-gradient-to-r from-primary to-cyan-glow bg-clip-text text-transparent">
+            de ta dot ?
+          </span>
         </h1>
-        <p className="mx-auto mt-4 max-w-sm text-[15px] font-semibold text-muted-foreground">
+        <p className="mx-auto mt-4 max-w-sm text-[15px] font-medium leading-relaxed text-muted-foreground">
           Un test rapide et confidentiel qui estime ta dot à partir de ton pays, de tes
           origines et de ton style de mariage.
         </p>
 
-        <CandyButton className="mt-7 w-full" onClick={start}>
+        <CandyButton className="mt-8 w-full" onClick={start}>
           Commencer le test
           <ArrowRight className="size-5" aria-hidden />
         </CandyButton>
 
-        <ul className="mt-5 flex items-center justify-center gap-4 text-[11px] font-bold text-muted-foreground">
+        <ul className="mt-6 flex items-center justify-center gap-4 text-[11px] font-semibold text-muted-foreground">
           <li className="flex items-center gap-1.5">
             <Clock className="size-3.5 text-primary" aria-hidden /> 2 minutes
           </li>
@@ -143,13 +137,13 @@ function Home() {
           </li>
         </ul>
 
-        <div className="clay mt-7 flex items-center justify-center gap-3 px-4 py-3">
+        <div className="glass-card-soft mt-8 flex items-center justify-center gap-3 px-4 py-3.5">
           <div className="flex" aria-hidden>
             {[0, 1, 2, 3, 4].map((i) => (
-              <Star key={i} className="size-4 fill-gold text-gold" />
+              <Star key={i} className="size-4 fill-primary text-primary" />
             ))}
           </div>
-          <p className="text-[12px] font-bold text-muted-foreground">
+          <p className="text-[12px] font-semibold text-muted-foreground">
             4,8/5 · <span className="text-foreground">12 480</span> estimations réalisées
           </p>
         </div>
@@ -157,25 +151,25 @@ function Home() {
 
       {/* Comment ça marche */}
       <section className="relative z-10 mx-auto w-full max-w-md px-5 py-8">
-        <h2 className="sticker-title text-center text-xl">Comment ça marche</h2>
-        <div className="mt-5 space-y-3">
+        <h2 className="page-title text-center text-xl">Comment ça marche</h2>
+        <div className="mt-6 space-y-3">
           {STEPS.map((step, index) => (
             <motion.article
               key={step.title}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: index * 0.06 }}
-              className="clay-soft flex items-start gap-3 p-4"
+              transition={{ delay: index * 0.06, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="glass-card-soft flex items-start gap-3.5 p-4"
             >
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-secondary text-secondary-foreground">
+              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
                 <step.icon className="size-5" aria-hidden />
               </span>
               <div>
-                <h3 className="font-display text-[15px] font-extrabold">
+                <h3 className="font-display text-[15px] font-bold tracking-tight">
                   {index + 1}. {step.title}
                 </h3>
-                <p className="mt-1 text-[13px] font-semibold text-muted-foreground">{step.text}</p>
+                <p className="mt-1 text-[13px] font-medium text-muted-foreground">{step.text}</p>
               </div>
             </motion.article>
           ))}
@@ -184,16 +178,18 @@ function Home() {
 
       {/* Témoignages */}
       <section className="relative z-10 mx-auto w-full max-w-md px-5 py-8">
-        <h2 className="sticker-title text-center text-xl">Ils ont fait le test</h2>
-        <div className="mt-5 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2">
+        <h2 className="page-title text-center text-xl">Ils ont fait le test</h2>
+        <div className="mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2">
           {TESTIMONIALS.map((item) => (
             <article
               key={item.name}
-              className="clay-soft w-[85%] shrink-0 snap-center p-4 text-left"
+              className="glass-card-soft w-[85%] shrink-0 snap-center p-5 text-left"
             >
-              <Quote className="size-5 text-candy-pink" aria-hidden />
-              <p className="mt-2 text-[13px] font-semibold text-foreground">{item.text}</p>
-              <p className="mt-3 text-[12px] font-extrabold text-muted-foreground">{item.name}</p>
+              <Quote className="size-5 text-primary/60" aria-hidden />
+              <p className="mt-2.5 text-[13px] font-medium leading-relaxed text-foreground">
+                {item.text}
+              </p>
+              <p className="mt-3 text-[12px] font-bold text-muted-foreground">{item.name}</p>
             </article>
           ))}
         </div>
@@ -201,18 +197,18 @@ function Home() {
 
       {/* FAQ */}
       <section className="relative z-10 mx-auto w-full max-w-md px-5 py-8">
-        <h2 className="sticker-title text-center text-xl">Questions fréquentes</h2>
-        <div className="mt-5 space-y-2.5">
+        <h2 className="page-title text-center text-xl">Questions fréquentes</h2>
+        <div className="mt-6 space-y-2.5">
           {FAQ.map((item) => (
-            <details key={item.q} className="clay-soft group p-4">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-display text-[14px] font-extrabold">
+            <details key={item.q} className="glass-card-soft group p-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-display text-[14px] font-bold tracking-tight">
                 {item.q}
                 <ArrowRight
                   className="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-90"
                   aria-hidden
                 />
               </summary>
-              <p className="mt-2 text-[13px] font-semibold text-muted-foreground">{item.a}</p>
+              <p className="mt-2 text-[13px] font-medium text-muted-foreground">{item.a}</p>
             </details>
           ))}
         </div>
