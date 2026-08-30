@@ -216,7 +216,7 @@ html {
     font-size: 1.02rem;
     letter-spacing: 0.01em;
     color: var(--primary-foreground);
-    background: linear-gradient(100deg, oklch(0.55 0.22 275), oklch(0.62 0.16 235) 55%, oklch(0.7 0.14 210));
+    background: linear-gradient(100deg, var(--grad-a), var(--grad-b) 55%, var(--grad-c));
     box-shadow:
       0 12px 24px -12px oklch(0.58 0.2 265 / 0.5),
       inset 0 1px 0 oklch(1 0 0 / 0.25);
@@ -293,7 +293,7 @@ html {
 
   .option-item-selected {
     border-color: transparent;
-    background: linear-gradient(100deg, oklch(0.55 0.22 275), oklch(0.68 0.14 215));
+    background: linear-gradient(100deg, var(--grad-a), var(--grad-b));
     color: oklch(0.99 0.005 250);
     box-shadow: 0 12px 24px -12px oklch(0.58 0.2 265 / 0.5);
   }
@@ -310,7 +310,7 @@ html {
   .progress-fill {
     height: 100%;
     border-radius: 9999px;
-    background: linear-gradient(90deg, oklch(0.55 0.22 275), oklch(0.7 0.14 210));
+    background: linear-gradient(90deg, var(--grad-a), var(--grad-c));
     transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
@@ -367,9 +367,9 @@ html {
   .glow-orb {
     background: radial-gradient(
       circle at 35% 30%,
-      oklch(0.85 0.1 220),
-      oklch(0.6 0.2 275) 55%,
-      oklch(0.5 0.18 290)
+      color-mix(in oklab, var(--grad-c) 80%, white),
+      var(--grad-a) 55%,
+      color-mix(in oklab, var(--grad-a) 85%, black)
     );
     box-shadow:
       0 24px 48px -16px oklch(0.58 0.2 265 / 0.45),
