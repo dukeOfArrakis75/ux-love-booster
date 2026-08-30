@@ -1,8 +1,10 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
+import { useEffect } from "react";
 import { Sparkles, ArrowRight, ShieldCheck, Clock, ListChecks, Star, Quote, Gem } from "lucide-react";
 
 import { CandyButton } from "../components/game/CandyButton";
+import { game } from "../lib/game-store";
 import { applyProfileTheme, themeForProfile } from "../lib/theme";
 
 export const Route = createFileRoute("/")({
@@ -86,6 +88,10 @@ const FAQ = [
 function Home() {
   const navigate = useNavigate();
   const start = () => void navigate({ to: "/quiz" });
+
+  useEffect(() => {
+    applyProfileTheme(themeForProfile(game.get().answers["marriage.profile"]));
+  }, []);
 
   return (
     <main className="relative overflow-hidden pb-28">

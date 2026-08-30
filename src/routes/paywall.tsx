@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Lock, Check, Gem } from "lucide-react";
 
 import { CandyButton } from "../components/game/CandyButton";
@@ -34,6 +34,10 @@ const PERKS = [
 function Paywall() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    applyProfileTheme(themeForProfile(game.get().answers["marriage.profile"]));
+  }, []);
 
   function unlock() {
     setLoading(true);

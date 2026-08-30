@@ -33,6 +33,7 @@ function Result() {
   const estimation = useMemo(() => computeEstimation(state.answers), [state.answers]);
 
   useEffect(() => {
+    applyProfileTheme(themeForProfile(state.answers["marriage.profile"]));
     game.complete();
     void fireConfetti("pop");
   }, []);
@@ -101,6 +102,7 @@ function Result() {
           type="button"
           onClick={() => {
             game.reset();
+            applyProfileTheme(null);
             void navigate({ to: "/" });
           }}
           className="mx-auto mt-4 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground underline underline-offset-2"
