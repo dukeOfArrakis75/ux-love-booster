@@ -132,6 +132,42 @@
   --sidebar-ring: oklch(0.68 0.19 272);
 }
 
+/* ============ Thèmes époux / épouse ============ */
+
+/* Époux : bleu électrique → turquoise */
+[data-theme="husband"] {
+  --primary: oklch(0.55 0.2 250);
+  --ring: oklch(0.55 0.2 250);
+  --cyan-glow: oklch(0.78 0.13 195);
+  --grad-a: oklch(0.5 0.21 258);
+  --grad-b: oklch(0.6 0.16 225);
+  --grad-c: oklch(0.78 0.13 195);
+  --secondary: oklch(0.955 0.02 245);
+  --secondary-foreground: oklch(0.42 0.09 250);
+  --accent: oklch(0.94 0.035 240);
+  --background: oklch(0.985 0.006 240);
+}
+
+/* Épouse : rose fuchsia → corail doré */
+[data-theme="spouse"] {
+  --primary: oklch(0.62 0.21 350);
+  --ring: oklch(0.62 0.21 350);
+  --cyan-glow: oklch(0.82 0.13 55);
+  --grad-a: oklch(0.6 0.22 345);
+  --grad-b: oklch(0.7 0.18 15);
+  --grad-c: oklch(0.83 0.13 60);
+  --secondary: oklch(0.96 0.025 350);
+  --secondary-foreground: oklch(0.45 0.1 350);
+  --accent: oklch(0.95 0.035 345);
+  --background: oklch(0.99 0.008 350);
+}
+
+html {
+  transition: background-color 0.5s ease;
+}
+
+
+
 @layer base {
   * {
     border-color: var(--color-border);
