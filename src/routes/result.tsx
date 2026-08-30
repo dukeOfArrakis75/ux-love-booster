@@ -4,6 +4,7 @@ import { useEffect, useMemo } from "react";
 import { RotateCcw, Share2, CheckCircle2 } from "lucide-react";
 
 import { CandyButton } from "../components/game/CandyButton";
+import { applyProfileTheme, themeForProfile } from "../lib/theme";
 import { fireConfetti } from "../components/game/confetti";
 import { game, useGame } from "../lib/game-store";
 import { computeEstimation } from "../lib/quiz-data";

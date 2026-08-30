@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { Sparkles, ArrowRight, ShieldCheck, Clock, ListChecks, Star, Quote, Gem } from "lucide-react";
 
 import { CandyButton } from "../components/game/CandyButton";
+import { applyProfileTheme, themeForProfile } from "../lib/theme";
 
 export const Route = createFileRoute("/")({
   head: () => ({

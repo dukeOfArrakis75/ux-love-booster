@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Lock, Check, Gem } from "lucide-react";
 
 import { CandyButton } from "../components/game/CandyButton";
+import { applyProfileTheme, themeForProfile } from "../lib/theme";
 import { game } from "../lib/game-store";
 
 export const Route = createFileRoute("/paywall")({
