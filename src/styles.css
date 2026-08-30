@@ -70,6 +70,11 @@
   --primary: oklch(0.55 0.22 275);
   --primary-foreground: oklch(0.99 0.005 250);
   --cyan-glow: oklch(0.75 0.13 210);
+  /* Dégradé signature (surchargé par le thème époux / épouse) */
+  --grad-a: oklch(0.55 0.22 275);
+  --grad-b: oklch(0.62 0.16 235);
+  --grad-c: oklch(0.7 0.14 210);
+
   --secondary: oklch(0.96 0.015 265);
   --secondary-foreground: oklch(0.42 0.08 272);
   --muted: oklch(0.955 0.008 255);
