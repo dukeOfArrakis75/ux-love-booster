@@ -42,16 +42,18 @@ export const CITIES: Record<string, string[]> = {
 export const QUIZ_STEPS: QuizStep[] = [
   {
     key: "player.email",
-    section: "Nouvelle partie",
-    title: "Crée ta carte de joueur",
-    subtitle: "Ton email pour recevoir ton trésor 💌",
+    section: "Pour commencer",
+    title: "Ton email",
+    subtitle: "Pour recevoir ton estimation, rien d'autre.",
     type: "email",
   },
   {
     key: "marriage.profile",
-    section: "La quête de la dot",
+    section: "Ton profil",
     title: "Tu es… ?",
+    subtitle: "L'interface s'adapte à ton choix.",
     type: "profile",
+
     options: [
       { value: "HUSBAND", label: "Le futur époux", emoji: "🤵" },
       { value: "SPOUSE", label: "La future épouse", emoji: "👰" },
@@ -59,14 +61,15 @@ export const QUIZ_STEPS: QuizStep[] = [
   },
   {
     key: "marriage.current_country",
-    section: "Ta tribu",
+    section: "Ton contexte",
     title: "Tu vis actuellement où ?",
     type: "location",
   },
   {
     key: "marriage.family_origin",
-    section: "Ta tribu",
+    section: "Ton contexte",
     title: "Tes origines familiales viennent d'où ?",
+
     type: "single",
     options: COUNTRIES,
   },
